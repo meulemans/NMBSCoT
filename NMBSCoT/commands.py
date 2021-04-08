@@ -11,6 +11,7 @@ import urllib
 
 import pytak
 
+import NMBSCoT
 
 # Python 3.6 support:
 if sys.version_info[:2] >= (3, 7):
@@ -34,7 +35,7 @@ async def main(opts):
 
     nmbs_url: urllib.parse.ParseResult = urllib.parse.urlparse(opts.nmbs_url)
 
-    message_worker = NMBSCot.NMBSWorker(
+    message_worker = NMBSCoT.NMBSWorker(
         event_queue=tx_queue,
         url=nmbs_url,
         api_key=opts.api_key,
@@ -42,7 +43,7 @@ async def main(opts):
         cot_stale=opts.cot_stale
     )
 
-    await tx_queue.put(nmbscot.hello_event())
+    await tx_queue.put(NMBSCoT.hello_event())
 
     done, pending = await asyncio.wait(
         set([message_worker.run(), read_worker.run(), write_worker.run()]),

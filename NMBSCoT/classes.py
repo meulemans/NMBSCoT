@@ -9,7 +9,7 @@ import aiohttp
 import asyncio
 
 import pytak
-
+import NMBSCoT
 
 class NMBSWorker(pytak.MessageWorker):
 
@@ -21,9 +21,9 @@ class NMBSWorker(pytak.MessageWorker):
         self.url = url
         self.cot_stale = cot_stale
         self.poll_interval: int = int(poll_interval or
-                                      NMBSCot.DEFAULT_POLL_INTERVAL)
+                                      NMBSCoT.DEFAULT_POLL_INTERVAL)
         self.api_key: str = api_key
-        self.cot_renderer = NMBSCot.nmbs_to_cot
+        self.cot_renderer = NMBSCoT.nmbs_to_cot
 
     async def handle_message(self, trips: list) -> None:
         if not trips:
@@ -33,7 +33,7 @@ class NMBSWorker(pytak.MessageWorker):
         _lac = len(trips)
         _acn = 1
         for trip in trips:
-            event = NMBSCot.nmbs_to_cot(
+            event = NMBSCoT.nmbs_to_cot(
                 trip,
                 stale=self.cot_stale
             )
@@ -53,7 +53,7 @@ class NMBSWorker(pytak.MessageWorker):
 
     async def _get_nmbs_feed(self):
         async with aiohttp.ClientSession() as session:
-            ws = await  session.ws_connect(self.url)
+            ws = await session.ws_connect(self.url)
             while True:
                 msg = await ws.receive()
 

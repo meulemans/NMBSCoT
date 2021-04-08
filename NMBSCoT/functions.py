@@ -7,9 +7,7 @@ import datetime
 
 import pycot
 
-import NMBSCoT.constants
-
-
+import NMBSCoT
 
 def nmbs_to_cot(trip: dict, stale: int = None,
                  classifier = None) -> pycot.Event:
@@ -17,7 +15,7 @@ def nmbs_to_cot(trip: dict, stale: int = None,
     Transforms an ADS-B Exchange Aircraft Object to a Cursor-on-Target PLI.
     """
     time = datetime.datetime.now(datetime.timezone.utc)
-    stale = stale or NMBSCot.constants.DEFAULT_STALE
+    stale = stale or NMBSCoT.constants.DEFAULT_STALE
 
     lat = trip[1]['position'][0]
     lon = trip[1]['position'][1]
@@ -54,12 +52,12 @@ def nmbs_to_cot(trip: dict, stale: int = None,
     detail = pycot.Detail()
     detail.uid = uid
     detail.contact = contact
-    detail.remarks = remarks
+    #detail.remarks = remarks
 
     event = pycot.Event()
     event.version = "2.0"
     event.event_type = cot_type
-    event.uid = name
+    event.uid = callsign
     event.time = time
     event.start = time
     event.stale = time + datetime.timedelta(seconds=stale)

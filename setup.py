@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='NMBSCoT',
     version='1.0',
-    packages=['nmbscot'],
+    packages=['NMBSCoT'],
     url='',
     license='',
     author='Sven Meuleman',
@@ -12,5 +12,10 @@ setup(
     keywords=[
         'NMBS','Cursor on Target', 'ATAK', 'TAK', 'CoT'
     ],
-    entry_points={'console_scripts': ['nmbscot = nmbscot.commands:cli']}
+    install_requires=[
+        'aiohttp',
+        'pytak>=3.2.0',
+        'pycot>=2.5.0'
+    ],
+    entry_points={'console_scripts': ['nmbscot = NMBSCoT.commands:cli']}
 )
