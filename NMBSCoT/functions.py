@@ -76,8 +76,8 @@ def hello_event():
     callsign = 'nmbscot'
 
     point = pycot.Point()
-    point.lat = 0.0
-    point.lon = 0.0
+    point.lat = '9999999.0'
+    point.lon = '9999999.0'
 
     # FIXME: These values are static, should be dynamic.
     point.ce = '9999999.0'
@@ -96,7 +96,7 @@ def hello_event():
 
     event = pycot.Event()
     event.version = '2.0'
-    event.event_type = 'a-u-G'
+    event.event_type = 'a-n-G-E-S'
     event.uid = name
     event.time = time
     event.start = time
