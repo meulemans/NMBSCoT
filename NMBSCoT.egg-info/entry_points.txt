@@ -1,3 +1,0 @@
-[console_scripts]
-nmbscot = nmbscot.commands:cli
-
